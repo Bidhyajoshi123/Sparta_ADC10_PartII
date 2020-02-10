@@ -23,6 +23,22 @@ def get_customer(request, pk):
             return JsonResponse({"Error":"No customer with the given name found."})
 
 @csrf_exempt
+def add_customer(request):
+    if request.method == "POST":
+        json_data = request.body.decode('utf-8')
+        new = json.loads(json_data)
+        customer_firstname = new['customer_firstname']
+        customer_lastname = new['customer_lastname']
+        customer_account_no = new['customer_account_no']
+        customer_contact_no = new['customer_contact_no']
+        customer = Customer.objects.create(customer_firstname=customer_firstname, customer_lastname = customer_lastname, customer_account_no = customer_account_no, customer_contact_no = customer_contact_no)
+        try:
+            customer.save()
+            return JsonResponse({"Success":"Customer has been added successfully!"})
+        except:
+            return JsonResponse({"Error":"Customer could not be added!"})
+
+@csrf_exempt
 def update_api_data(request, pk):
     customer = Customer.objects.get(pk=pk)
     if request.method == "PUT":
@@ -38,6 +54,10 @@ def update_api_data(request, pk):
         customer.delete()
         return JsonResponse({"Success":"Customer Successfully Deleted!!"})
 
-
-
-
+def customer_objects_pagination(request, page_num, num_data):
+	skip = num_data * (page_num - 1)
+	customer = Customer.objects.all() [skip:(page_num*num_data)]
+	dict = {
+		"customers":list(customer.values("customer_firstname","customer_lastname","customer_account_no","customer_contact_no"))
+	}
+	return JsonResponse(dict)
