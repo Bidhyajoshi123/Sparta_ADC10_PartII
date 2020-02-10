@@ -6,26 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <title>CRUD</title>
+    <title>SignUp</title>
 </head>
 <body>
-
-    <h2>Banking App</h2>
-    <ul>
-    <li><a href="{% url 'show_all' %}">Show All</a></li>
+    <h1>Signup</h1> <br>
     <br>
-    <li><a href="{% url 'add_new' %}">Add new</a></li>
-    <br>
-    <li><a href="{% url 'edit_delete' %}">Edit/Delete</a></li>
-    <br>
-    <li><a href="{% url 'search' %}">Search</a></li>
-    <br>
-    <li><a href="{% url 'upload' %}">Upload</a></li>
-    <br>
-    <li><a href="{% url 'signup' %}">SignUp</a></li>
-    <br>
-    </ul>
-
+    <form method="POST">
+        {% csrf_token %}
+        Enter username: <input type="text" name="input_username"> <br><br>
+        Enter password: <input type="password" name="input_password"> <br><br>
+        Enter email: <input type="email" name="input_email"> <br><br>
+        <input type="submit"> 
     
+    </form>
+
 </body>
 </html>

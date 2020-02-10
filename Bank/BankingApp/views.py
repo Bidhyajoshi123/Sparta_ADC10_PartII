@@ -6,6 +6,8 @@ from django.db.models import Q
 from django.core.files.storage import FileSystemStorage 
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, "index.html")
@@ -72,3 +74,11 @@ def upload(request):
         context['url'] = fs.url(name)
     return render(request, 'upload.html',context)
 
+def signup(request):
+    if request.method == "GET":
+        return render(request,'registration/register.html')
+    else:
+        print(request.POST)
+        user = User.objects.create_user(username=request.POST['input_username'],password=request.POST['input_password'],email=request.POST['input_email'])
+        user.save()
+        return HttpResponse("Signup Successful!!!")
