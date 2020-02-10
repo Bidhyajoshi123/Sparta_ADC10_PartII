@@ -12,9 +12,8 @@ urlpatterns = [
     path('edit/<int:id>', views.edit, name="edit"),
     path('search/', views.search, name="search"),
     path('upload/', views.upload, name="upload"),
+    path('signup/',views.signup, name="signup"),
     
-
-
 ]
 
 # if settings.DEBUG:
